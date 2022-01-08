@@ -1,12 +1,18 @@
 package com.codepath.bestsellerlistapp
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.bumptech.glide.Glide
 import com.codepath.bestsellerlistapp.BestSellerBooksRecyclerViewAdapter.BookViewHolder
 import com.codepath.bestsellerlistapp.R.id
 import com.codepath.bestsellerlistapp.R.layout
@@ -30,7 +36,13 @@ class BestSellerBooksRecyclerViewAdapter(
         holder.mItem = books[position]
         holder.mBookTitle.text = books[position].title
         holder.mBookAuthor.text = books[position].author
-        holder.mView.setOnClickListener {
+        holder.mBookRank.text = books[position].rank.toString()
+        holder.mBookDesc.text = books[position].description
+        Glide.with(holder.mView)
+            .load(books[position].bookImageUrl)
+            .centerInside()
+            .into(holder.mBookImage)
+        holder.mBookBuy.setOnClickListener {
             holder.mItem?.let { book ->
                 mListener?.onItemClick(book)
             }
@@ -44,6 +56,10 @@ class BestSellerBooksRecyclerViewAdapter(
     inner class BookViewHolder(val mView: View) : ViewHolder(mView) {
         val mBookTitle: TextView = mView.findViewById<View>(id.book_title) as TextView
         val mBookAuthor: TextView = mView.findViewById<View>(id.book_author) as TextView
+        val mBookRank: TextView = mView.findViewById<View>(id.ranking) as TextView
+        val mBookImage: ImageView = mView.findViewById<View>(id.book_image) as ImageView
+        val mBookDesc: TextView = mView.findViewById<View>(id.book_description) as TextView
+        val mBookBuy: Button = mView.findViewById<View>(id.buy_button) as Button
         var mItem: BestSellerBook? = null
 
         override fun toString(): String {

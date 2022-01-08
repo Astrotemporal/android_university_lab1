@@ -1,5 +1,7 @@
 package com.codepath.bestsellerlistapp
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -52,7 +54,9 @@ class BestSellerBooksFragment : Fragment(), OnListFragmentInteractionListener {
     }
 
     override fun onItemClick(item: BestSellerBook) {
-        Toast.makeText(context, "test", Toast.LENGTH_LONG).show()
+        // Toast.makeText(context, "test", Toast.LENGTH_LONG).show()
+        val i = Intent(Intent.ACTION_VIEW, Uri.parse(item.amazonUrl))
+        startActivity(i)
     }
 
     companion object {
